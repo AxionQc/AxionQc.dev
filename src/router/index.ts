@@ -13,6 +13,10 @@ const routes = [
     name: 'Socials',
     component: SocialsView,
   },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/',
+  },
 ]
 
 const router = createRouter({

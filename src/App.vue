@@ -2,8 +2,11 @@
 import { RouterView } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 
+
+
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const dots = ref<{ x: number; y: number; vx: number; vy: number }[]>([])
+const initialDots = ref<{ x: number; y: number }[]>([]) // Store initial positions
 const numDots = ref(0) // Change to a ref to dynamically update
 
 const mouseX = ref(0)
@@ -27,15 +30,32 @@ const handleMouseMove = (event: MouseEvent | TouchEvent) => {
   }, 100)
 }
 
+const handleClick = (event: MouseEvent) => {
+  if (event.button === 0) { // Check if left mouse button is clicked
+    dots.value.forEach((dot, index) => {
+      const dx = initialDots.value[index].x - dot.x
+      const dy = initialDots.value[index].y - dot.y
+      const distance = Math.sqrt(dx * dx + dy * dy)
+      const force = 10 / (distance + 1) // Adjust the force of the explosion
+      dot.vx += dx * force
+      dot.vy += dy * force
+    })
+  }
+}
+
 const createDots = () => {
   dots.value = []
+  initialDots.value = [] // Reset initial positions
   for (let i = 0; i < numDots.value; i++) {
+    const x = Math.random() * window.innerWidth
+    const y = Math.random() * window.innerHeight
     dots.value.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
+      x,
+      y,
       vx: (Math.random() - 0.5) * 0.5, // Slow down the speed
       vy: (Math.random() - 0.5) * 0.5, // Slow down the speed
     })
+    initialDots.value.push({ x, y }) // Store initial positions
   }
 }
 
@@ -140,6 +160,7 @@ onMounted(() => {
   window.addEventListener('mousemove', handleMouseMove)
   window.addEventListener('touchmove', handleMouseMove) // Add touchmove event listener
   window.addEventListener('resize', updateNumDots) // Update number of dots on resize
+  window.addEventListener('click', handleClick) // Add click event listener
   updateNumDots()
   updateDots()
 })
@@ -148,6 +169,7 @@ onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
   window.removeEventListener('touchmove', handleMouseMove) // Remove touchmove event listener
   window.removeEventListener('resize', updateNumDots)
+  window.removeEventListener('click', handleClick) // Remove click event listener
   dots.value = []
 })
 </script>
@@ -155,7 +177,17 @@ onUnmounted(() => {
 <template>
   <div id="app">
     <canvas ref="canvasRef" class="background-canvas"></canvas>
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <transition name="fade" mode="out-in"> <!-- Ensure transition for route changes -->
+        <component :is="Component" />
+      </transition>
+    </RouterView>
+    <nav class="navbar">
+      <ul>
+        <li><a href="/">Home</a></li> <!-- Update href to "/" -->
+        <li><a href="/Socials">Socials</a></li> <!-- Update href to "/Socials" -->
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -174,5 +206,42 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   background-color: rgba(238, 130, 238, 0.1); /* Add weak violet background color */
+}
+.navbar {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  outline: 2px solid rgba(221, 160, 221, 0.5); /* Purple semi-transparent outline */
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.navbar a:hover {
+  color: #dda0dd; /* Violet purple color */
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s ease; /* Adjust the duration as needed */
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
 }
 </style>

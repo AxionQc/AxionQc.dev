@@ -1,0 +1,21 @@
+@import './base.css';
+
+#app {
+
+}
+
+a,
+.purple {
+  text-decoration: none;
+  color: rgb(135, 0, 189);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(286, 100%, 37%, 0.2);
+  }
+}
+
+

@@ -22,7 +22,7 @@
           >
         </li>
         <li>
-          <a href="https://youtube.com/AxionQc" target="_blank"
+          <a href="https://youtube.com/@AxionQc" target="_blank"
             ><i class="fab fa-youtube" style="color: #ff0000"></i> YouTube</a
           >
         </li>

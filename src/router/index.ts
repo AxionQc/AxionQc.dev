@@ -9,7 +9,7 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/socials',
+    path: '/socials/',
     name: 'Socials',
     component: SocialsView,
   },

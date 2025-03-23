@@ -64,21 +64,22 @@
   left: 10%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px 40px;
+  padding: 20px 20px; /* Adjust padding to fit content */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  height: 40%;
+  height: auto; /* Adjust height to fit content */
   border: 2px solid #dda0dd; /* Violet purple outline */
 }
 
 .navbar ul {
   list-style: none;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Change to column to fit items vertically */
   justify-content: space-between;
   height: 100%;
   margin: 0;
   padding: 0;
+  gap: 10px; /* Add gap between items */
 }
 
 .navbar a {
@@ -103,5 +104,27 @@
   color: #fff;
   text-align: center;
   border: 3px solid #dda0dd; /* Violet purple outline */
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    position: static;
+    transform: none;
+    margin-top: 50px; /* Further increase margin to lower the navbar */
+    margin-bottom: 0px; /* Further increase margin to lower the navbar */
+  }
+
+  .text-container {
+    position: static;
+    transform: none;
+    margin-top: 40px; /* Increase margin to lower the text container */
+  }
+
+  .main-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    padding-top: 80px; /* Increase padding to lower everything */
+  }
 }
 </style>

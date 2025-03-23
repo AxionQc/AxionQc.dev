@@ -1,18 +1,6 @@
 <template>
   <main class="main-container">
     <!-- Removed background canvas -->
-    <div class="sidebar">
-      <h2>Navigation</h2>
-      <ul><picture>
-        <source media="(min-width: )" srcset="">
-        <img src="" alt="">
-      </picture>
-        <li><a href="#about-me">👤 About Me</a></li>
-        <li><a href="#projects">📁 Projects</a></li>
-        <li><a href="#skills">💡 Skills</a></li>
-        <li><a href="#contact">📞 Contact</a></li>
-      </ul>
-    </div>
     <div class="content">
       <div class="text-container">
         <h1>Hi, Im AxionQc, Come take a look around</h1>

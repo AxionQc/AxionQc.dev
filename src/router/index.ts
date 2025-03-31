@@ -9,13 +9,9 @@ const routes = [
     component: HomeView,
   },
   {
-    path: '/Socials',
+    path: '/socials/',
     name: 'Socials',
     component: SocialsView,
-  },
-  {
-    path: '/:catchAll(.*)',
-    redirect: '/',
   },
 ]
 

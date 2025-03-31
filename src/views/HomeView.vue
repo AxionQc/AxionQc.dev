@@ -16,7 +16,7 @@
     <div class="content">
       <div class="text-container">
         <h1>Hi, Im AxionQc, Come take a look around</h1>
-        <p>Welcome to my portfolio website. Here you can find information about my projects I'm currently working on, skills, and experience.</p>
+        <p>Welcome, Here you can find information about my projects I'm currently working on, skills, and experience.</p>
       </div>
       <!-- Reverted container positions -->
       <div class="section-container about-me" id="about-me">

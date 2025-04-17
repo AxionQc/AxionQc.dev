@@ -52,8 +52,8 @@ const createDots = () => {
     dots.value.push({
       x,
       y,
-      vx: (Math.random() - 0.5) * 0.5, // Slow down the speed
-      vy: (Math.random() - 0.5) * 0.5, // Slow down the speed
+      vx: (Math.random() - 0.5) * 0.2, // Further slow down the speed
+      vy: (Math.random() - 0.5) * 0.2, // Further slow down the speed
     })
     initialDots.value.push({ x, y }) // Store initial positions
   }
@@ -65,7 +65,7 @@ const updateDots = () => {
   const ctx = canvas.getContext('2d')
   if (!ctx) return
 
-  // Set canvas size to match window size
+  // Set canvas size to match window sizey
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
@@ -85,16 +85,16 @@ const updateDots = () => {
       if (distance < maxDistance) {
         const angle = Math.atan2(dy, dx)
         const force = (maxDistance - distance) / maxDistance
-        dot.vx += Math.cos(angle) * force * 0.5 // Stronger fluid-like movement closer to the mouse
-        dot.vy += Math.sin(angle) * force * 0.5 // Stronger fluid-like movement closer to the mouse
+        dot.vx += Math.cos(angle) * force * 0.2 // Reduce fluid-like movement force
+        dot.vy += Math.sin(angle) * force * 0.2 // Reduce fluid-like movement force
       }
     } else {
       dot.vx += (Math.random() - 0.5) * 0.1 // Random movement
       dot.vy += (Math.random() - 0.5) * 0.1 // Random movement
     }
 
-    dot.vx *= 0.95 // Gradually slow down to normal movement
-    dot.vy *= 0.95 // Gradually slow down to normal movement
+    dot.vx *= 0.98 // Increase damping to slow down movement
+    dot.vy *= 0.98 // Increase damping to slow down movement
 
     // Apply weak repulsion force between dots
     for (let j = 0; j < dots.value.length && j < 20; j++) { // Reduced number of interactions
@@ -107,8 +107,8 @@ const updateDots = () => {
         if (distance < minDistance) {
           const angle = Math.atan2(dy, dx)
           const force = (minDistance - distance) / minDistance
-          dot.vx += Math.cos(angle) * force * 0.1 // Weaker repulsion force
-          dot.vy += Math.sin(angle) * force * 0.1 // Weaker repulsion force
+          dot.vx += Math.cos(angle) * force * 0.05 // Further weaken repulsion force
+          dot.vy += Math.sin(angle) * force * 0.05 // Further weaken repulsion force
         }
       }
     }
@@ -126,7 +126,7 @@ const updateDots = () => {
 
     ctx.beginPath()
     ctx.arc(dot.x, dot.y, 2, 0, Math.PI * 2)
-    ctx.fillStyle = 'rgba(221, 160, 221, 0.8)' // Change color to purple
+    ctx.fillStyle = 'rgba(238, 130, 238, 0.9)' // Change color to violet
     ctx.fill()
   })
 
@@ -142,7 +142,7 @@ const updateDots = () => {
         ctx.beginPath()
         ctx.moveTo(dots.value[i].x, dots.value[i].y)
         ctx.lineTo(dots.value[j].x, dots.value[j].y)
-        ctx.strokeStyle = `rgba(221, 160, 221, ${1 - distance / 225})` // Adjust transparency calculation
+        ctx.strokeStyle = `rgba(238, 130, 238, ${1 - distance / 225})` // Adjust line color to match violet
         ctx.stroke()
       }
     }
@@ -178,16 +178,10 @@ onUnmounted(() => {
   <div id="app">
     <canvas ref="canvasRef" class="background-canvas"></canvas>
     <RouterView v-slot="{ Component }">
-      <transition name="fade" mode="out-in"> <!-- Ensure transition for route changes -->
+      <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
     </RouterView>
-    <nav class="navbar">
-      <ul>
-        <li><a href="/">Home</a></li> <!-- Update href to "/" -->
-        <li><a href="/Socials">Socials</a></li> <!-- Update href to "/Socials" -->
-      </ul>
-    </nav>
   </div>
 </template>
 
@@ -205,43 +199,6 @@ onUnmounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(238, 130, 238, 0.1); /* Add weak violet background color */
-}
-.navbar {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  outline: 2px solid rgba(221, 160, 221, 0.5); /* Purple semi-transparent outline */
-}
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-.navbar a:hover {
-  color: #dda0dd; /* Violet purple color */
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease; /* Adjust the duration as needed */
-}
-
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
+  background-color: rgba(176, 91, 250, 0.059); /* Add weak violet background color */
 }
 </style>

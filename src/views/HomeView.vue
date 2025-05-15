@@ -55,8 +55,7 @@
       <div class="section-container projects" id="projects">
         <h2>Projects</h2>
         <ul>
-          <li>Reparios: Reparios will be a 3D Multiplayer Co-Op game where you get sent to stations and planets to repair machines and restock inventory.</li>
-          <li>Celestial Drift: Celestial drift is a 2d adventure game about an astronaut who wakes up alone in his Station. Will you Be able to solve the mystery and come back home?</li>
+          <li>ProtoController Neo: Revamped ProtogenController with a smaller form factor perfect for CoelaCant's ProtoTracer.</li>
           <li>AxionLabs: AxionLabs is a Pc Assembling/OEM company im starting to attempt to give people the best computers for the cheapest price</li>
         </ul>
       </div>
@@ -161,7 +160,7 @@
 
 .text-container, .section-container {
   text-align: center;
-  background-color: rgba(138, 43, 226, 0.15); /* Less bright semi-transparent violet */
+  background-color: rgba(115, 14, 209, 0.15); /* Less bright semi-transparent violet */
   backdrop-filter: blur(5px); /* Add blur for frosted glass effect */
   padding: 20px;
   border-radius: 10px;

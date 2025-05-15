@@ -2,8 +2,6 @@
 import { RouterView } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue'
 
-
-
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 const dots = ref<{ x: number; y: number; vx: number; vy: number }[]>([])
 const initialDots = ref<{ x: number; y: number }[]>([]) // Store initial positions
@@ -31,7 +29,8 @@ const handleMouseMove = (event: MouseEvent | TouchEvent) => {
 }
 
 const handleClick = (event: MouseEvent) => {
-  if (event.button === 0) { // Check if left mouse button is clicked
+  if (event.button === 0) {
+    // Check if left mouse button is clicked
     dots.value.forEach((dot, index) => {
       const dx = initialDots.value[index].x - dot.x
       const dy = initialDots.value[index].y - dot.y
@@ -97,7 +96,8 @@ const updateDots = () => {
     dot.vy *= 0.98 // Increase damping to slow down movement
 
     // Apply weak repulsion force between dots
-    for (let j = 0; j < dots.value.length && j < 20; j++) { // Reduced number of interactions
+    for (let j = 0; j < dots.value.length && j < 20; j++) {
+      // Reduced number of interactions
       if (j !== index) {
         const dx = dot.x - dots.value[j].x
         const dy = dot.y - dots.value[j].y
@@ -132,7 +132,8 @@ const updateDots = () => {
 
   // Increase distance for drawing lines between dots
   for (let i = 0; i < dots.value.length; i++) {
-    for (let j = i + 1; j < dots.value.length && j < i + 20; j++) { // Reduced number of interactions
+    for (let j = i + 1; j < dots.value.length && j < i + 20; j++) {
+      // Reduced number of interactions
       const dx = dots.value[i].x - dots.value[j].x
       const dy = dots.value[i].y - dots.value[j].y
       const distance = Math.sqrt(dx * dx + dy * dy)
@@ -190,15 +191,55 @@ onUnmounted(() => {
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto; /* Enable scrolling */
+  display: flex;
+  flex-direction: column; /* Ensure proper stacking of elements */
+  justify-content: center;
+  align-items: center;
 }
 
 .background-canvas {
-  position: absolute;
+  position: fixed; /* Ensure the canvas stays fixed */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(176, 91, 250, 0.059); /* Add weak violet background color */
+  z-index: -1; /* Ensure canvas stays in the background */
+  box-shadow: 0 0 12px rgba(115, 14, 209, 0.5); /* Reduce blur for the canvas glow */
+}
+
+#app * {
+  box-sizing: border-box; /* Prevent overflow due to padding/margin */
+}
+
+.project-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Ensure it spans the full width */
+  overflow-wrap: break-word; /* Prevent text overflow */
+}
+
+@media (max-width: 768px) {
+  #app {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 10px; /* Add padding to prevent text from touching edges */
+    overflow-y: auto; /* Ensure vertical scrolling on mobile */
+  }
+
+  .background-canvas {
+    background-color: rgba(
+      176,
+      91,
+      250,
+      0.1
+    ); /* Slightly stronger background for better visibility */
+  }
+
+  .project-column {
+    order: 1; /* Ensure project column is displayed below everything */
+    margin-top: 20px; /* Add spacing from other elements */
+    align-self: stretch; /* Ensure it spans the full width on mobile */
+  }
 }
 </style>

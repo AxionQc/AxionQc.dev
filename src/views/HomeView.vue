@@ -43,20 +43,32 @@
       </ul>
     </div>
     <div class="content">
-      <img src="/Avatar.png" alt="Descriptive Alt Text" class="top-image" />
+      <img src="/Avatar.png" alt="Profile" class="top-image" />
       <div class="text-container">
         <h1>Hi, Im AxionQc, Come take a look around</h1>
-        <p>Welcome, Here you can find information about my projects I'm currently working on, skills, and experience.</p>
+        <p>
+          Welcome, Here you can find information about my projects I'm currently working on, skills,
+          and experience.
+        </p>
       </div>
       <div class="section-container about-me" id="about-me">
         <h2>About Me</h2>
-        <p>I am a passionate developer with experience in various technologies. I love creating innovative solutions and learning new things.</p>
+        <p>
+          I am a passionate developer with experience in various technologies. I love creating
+          innovative solutions and learning new things.
+        </p>
       </div>
       <div class="section-container projects" id="projects">
         <h2>Projects</h2>
         <ul>
-          <li>ProtoController Neo: Revamped ProtogenController with a smaller form factor perfect for CoelaCant's ProtoTracer.</li>
-          <li>AxionLabs: AxionLabs is a Pc Assembling/OEM company im starting to attempt to give people the best computers for the cheapest price</li>
+          <li>
+            ProtoController Neo: Revamped ProtogenController with a smaller form factor perfect for
+            CoelaCant's ProtoTracer.
+          </li>
+          <li>
+            AxionLabs: AxionLabs is a Pc Assembling/OEM company im starting to attempt to give
+            people the best computers for the cheapest price
+          </li>
         </ul>
       </div>
       <div class="section-container skills" id="skills">
@@ -75,14 +87,16 @@
 .main-container {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh; /* Ensure the background covers the full height */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center content vertically */
+  justify-content: flex-start; /* Align content to the top */
   color: #fff;
-  overflow: hidden; /* Prevent scrolling */
+  overflow: visible; /* Allow scrolling */
   padding: 20px; /* Add padding for spacing */
+  background-color: rgba(176, 91, 250, 0.059); /* Add background color */
+  box-shadow: 0 0 10px rgba(115, 14, 209, 0.5); /* Reduce blur for violet glow */
 }
 
 .socials-sidebar {
@@ -109,33 +123,38 @@
 
 .socials-sidebar a {
   text-decoration: none;
+  box-shadow: 0 0 8px rgba(115, 14, 209, 0.5); /* Reduce blur for social icons */
 }
 
 .socials-sidebar a:hover {
   opacity: 0.8;
+  box-shadow: 0 0 12px rgba(115, 14, 209, 0.7); /* Reduce blur on hover */
 }
 
 .content {
   width: 100%;
   max-width: 1200px; /* Limit content width */
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Create a 4-column grid */
+  grid-template-columns: 1fr 3fr; /* Adjust grid to place image and text side by side */
   grid-template-rows: auto; /* Allow rows to adjust dynamically */
   grid-gap: 20px; /* Add spacing between sections */
-  align-items: stretch; /* Stretch items to fill available space */
+  align-items: center; /* Align items vertically */
 }
 
 .top-image {
-  grid-column: span 4; /* Span all columns */
+  grid-column: span 1; /* Place the image in the first column */
   max-width: 200px; /* Adjust size as needed */
   max-height: 200px; /* Adjust size as needed */
   border-radius: 50%; /* Make the image circular */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   justify-self: center; /* Center the image horizontally */
+  object-fit: cover; /* Ensure the image is fully visible */
+  box-shadow: 0 0 10px rgba(115, 14, 209, 0.5); /* Reduce blur for the image */
 }
 
 .text-container {
-  grid-column: span 4; /* Make the text container span all columns */
+  grid-column: span 1; /* Place the text in the second column */
+  text-align: left; /* Align text to the left */
 }
 
 .section-container.about-me {
@@ -158,13 +177,15 @@
   grid-row: span 1; /* Span 1 row */
 }
 
-.text-container, .section-container {
+.text-container,
+.section-container {
   text-align: center;
   background-color: rgba(115, 14, 209, 0.15); /* Less bright semi-transparent violet */
   backdrop-filter: blur(5px); /* Add blur for frosted glass effect */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 10px rgba(115, 14, 209, 0.5); /* Reduce blur for text and sections */
 }
 
 .section-container ul {
@@ -173,7 +194,34 @@
   text-align: left;
 }
 
-.section-container p, .section-container li {
+.section-container p,
+.section-container li {
   margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .socials-sidebar {
+    display: none; /* Hide socials section on mobile */
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column; /* Stack sections vertically */
+    align-items: center; /* Center align content */
+    gap: 20px; /* Add spacing between sections */
+  }
+
+  .top-image {
+    justify-self: center; /* Center the image on mobile */
+    margin-bottom: 10px; /* Add spacing below the image */
+  }
+
+  .text-container {
+    text-align: center; /* Center text on mobile */
+  }
+
+  .section-container.projects {
+    order: 1; /* Move "Projects" section to the bottom */
+  }
 }
 </style>

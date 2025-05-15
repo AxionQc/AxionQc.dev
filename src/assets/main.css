@@ -1,7 +1,16 @@
 @import './base.css';
 
-#app {
+html,
+body {
+  overflow-y: scroll; /* Ensure vertical scrolling */
+  scroll-behavior: smooth; /* Smooth scrolling */
+  height: 100%; /* Ensure full height for scrolling */
+  margin: 0; /* Remove default margin to prevent layout issues */
+}
 
+#app {
+  height: 100%; /* Ensure #app spans full height */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 a,
@@ -10,12 +19,12 @@ a,
   color: rgb(135, 0, 189);
   transition: 0.4s;
   padding: 3px;
+  box-shadow: 0 0 8px rgba(115, 14, 209, 0.5); /* Reduce blur for links */
 }
 
 @media (hover: hover) {
   a:hover {
     background-color: hsla(286, 100%, 37%, 0.2);
+    box-shadow: 0 0 12px rgba(115, 14, 209, 0.7); /* Reduce blur on hover */
   }
 }
-
-
